@@ -138,5 +138,9 @@ func main() {
 		})
 	})
 
+	r.POST("/", func(c *gin.Context) {
+		c.Redirect(http.StatusTemporaryRedirect, "/login")
+	})
+
 	r.Run()
 }

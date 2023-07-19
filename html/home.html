@@ -6,6 +6,9 @@
     <title>Go Auth Home</title>
   </head>
   <body>
-    {{ .username}}
+    Olá, {{ .username}}!
+    <form action="/logout" method="post">
+      <button type="submit">Logout</button>
+    </form>
   </body>
 </html>

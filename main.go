@@ -1,9 +1,6 @@
 package main
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/base64"
 	"net/http"
 	"os"
 
@@ -13,13 +10,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Cookie struct {
-	Name string
-}
-
 type UserCredentials struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+}
+
+type UpdatePassword struct {
+	Username    string `json:"username"`
+	NewPassword string `json:"newpassword"`
+}
+
+// TODO: Cookie on different file
+type Cookie struct {
+	Name string
 }
 
 func (ck Cookie) Set(c *gin.Context, token string) {
@@ -57,13 +60,6 @@ func (ck Cookie) Clear(c *gin.Context) {
 
 const flowUsernamePassword = "USER_PASSWORD_AUTH"
 const flowRefreshToken = "REFRESH_TOKEN_AUTH"
-
-func computeSecretHash(clientSecret string, username string, clientId string) string {
-	mac := hmac.New(sha256.New, []byte(clientSecret))
-	mac.Write([]byte(username + clientId))
-
-	return base64.StdEncoding.EncodeToString(mac.Sum(nil))
-}
 
 func main() {
 	cognitoClientID := os.Getenv("COGNITO_CLIENT_ID")
@@ -125,11 +121,10 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "ok",
 		})
-		// TODO: redirect to home
 	})
 
 	r.POST("/changepassword", func(c *gin.Context) {
-		reqBody := UserCredentials{}
+		reqBody := UpdatePassword{}
 		err := c.BindJSON(&reqBody)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
@@ -150,7 +145,7 @@ func main() {
 			ChallengeName: aws.String("NEW_PASSWORD_REQUIRED"),
 			ClientId:      aws.String(cognitoClientID),
 			ChallengeResponses: map[string]*string{
-				"NEW_PASSWORD": aws.String(reqBody.Password),
+				"NEW_PASSWORD": aws.String(reqBody.NewPassword),
 				"USERNAME":     aws.String(reqBody.Username),
 			},
 			Session: aws.String(session),

@@ -138,7 +138,7 @@ func main() {
 		})
 	})
 
-	r.POST("/", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusTemporaryRedirect, "/login")
 	})
 

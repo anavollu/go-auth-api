@@ -33,6 +33,10 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("html/*")
 
+	r.GET("/health", func(c *gin.Context) {
+		c.Status(http.StatusOK)
+	})
+
 	r.POST("/login", func(c *gin.Context) {
 		flow := aws.String(flowUsernamePassword)
 		params := map[string]*string{

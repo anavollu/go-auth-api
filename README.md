@@ -28,3 +28,18 @@ Golang | Docker | AWS App Runner | AWS Cognito | AWS ECR
 ## <img src="https://cdn-icons-png.flaticon.com/24/5050/5050273.png" width="20" /> Deploy na AWS
 
 [Link da aplicação](https://mckia3dckg.us-east-1.awsapprunner.com)
+
+
+## <img src="https://cdn-icons-png.flaticon.com/128/10786/10786711.png" width="20" /> Diagramas
+
+Primeiro acesso:
+
+<img height="200px" src="https://github.com/anavollu/go-auth-api/assets/25857063/5c5e0bbc-1ac3-404e-80c5-97779d0308be" />
+
+Outros acessos:
+
+<img height="200px" src="https://github.com/anavollu/go-auth-api/assets/25857063/7231a66a-deda-4303-9d01-a363fcf403ee" />
+
+Infra:
+
+<img height="200px" src="https://github.com/anavollu/go-auth-api/assets/25857063/5141185a-3ba8-483a-bc8b-ccb61f358fb7" />

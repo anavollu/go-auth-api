@@ -51,7 +51,9 @@ func main() {
 		})
 
 		if err != nil {
-			c.HTML(http.StatusOK, "login.html", gin.H{})
+			c.HTML(http.StatusForbidden, "login.html", gin.H{
+				"error": err.Error(),
+			})
 			return
 		}
 

@@ -28,7 +28,10 @@ func main() {
 		panic(err)
 	}
 	awsCogInstance := cognitoidentityprovider.New(sess)
-	cognitoAuthClient, _ := cognito.NewCognitoClient(*sess.Config.Region, cognitoUserPoolID, cognitoClientID)
+	cognitoAuthClient, err := cognito.NewCognitoClient(*sess.Config.Region, cognitoUserPoolID, cognitoClientID)
+	if err != nil {
+		panic(err)
+	}
 
 	r := gin.Default()
 	r.LoadHTMLGlob("html/*")

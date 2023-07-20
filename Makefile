@@ -10,6 +10,10 @@ ECR_REPOSITORY_NAME := go-auth-ecr
 run:
 	go run .
 
+.PHONY: docker-run
+docker-run:
+	docker run -p "8081:8080" -v ~/.aws:/root/.aws --env-file .env ${DOCKER_IMAGE}
+
 .PHONY: build
 build:
 	docker build -t $(DOCKER_IMAGE) .
